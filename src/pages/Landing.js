@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Logo } from '../components';
 import main from '../assets/images/main.svg';
 import LandingPage from '../assets/wrappers/LandingPage';
@@ -19,7 +20,9 @@ const Landing = () => {
             repellat ad doloremque tempore beatae recusandae voluptatibus
             debitis unde repellendus vero.
           </p>
-          <button className="btn btn-hero">Login/register</button>
+          <Link to="/register" className="btn btn-hero">
+            Login/register
+          </Link>
         </div>
         <img src={main} alt="main" className="img main-img" />
       </div>
