@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Logo, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
+import { toast } from 'react-toastify';
 // redux toolkit and useNavigate later
 
 const initialState = {
@@ -18,12 +19,18 @@ const Register = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = values;
+
+    if (!email || !password || (!name && !isMember)) {
+      toast.error('please fill out all fields');
+    }
   };
 
   const toggleMember = () => {
@@ -52,7 +59,7 @@ const Register = () => {
         <FormRow
           type="email"
           labelText="email"
-          name={values.email}
+          name="email"
           value={values.email}
           onChange={handleChange}
         />
