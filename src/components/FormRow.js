@@ -7,7 +7,7 @@ const FormRow = ({ name, type, value, labelText, onChange }) => {
         {labelText || name}
       </label>
       <input
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}
