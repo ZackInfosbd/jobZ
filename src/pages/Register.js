@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Logo, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { toast } from 'react-toastify';
 // import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser } from '../features/user/userSlice';
 
 const initialState = {
@@ -21,6 +22,7 @@ const Register = () => {
 
   const { isLoading, user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -49,7 +51,13 @@ const Register = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    }
+  }, [user, navigate]);
 
   // redux toolkit and useNavigate later
 
@@ -82,7 +90,9 @@ const Register = () => {
           value={values.password}
           onChange={handleChange}
         />
-        <button className="btn btn-block">Submit</button>
+        <button className="btn btn-block" disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Submit'}
+        </button>
         <p>
           {values.isMember ? 'Not a member yet?' : 'Already a member'}
           <button type="button" onClick={toggleMember} className="member-btn">
